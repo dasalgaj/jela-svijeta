@@ -18,7 +18,7 @@
 
     <div class="content">
 
-        <button onclick="window.location='http://127.0.0.1:8000/faker'">Faker website</button>
+        <button onclick="window.location='http://127.0.0.1:8000/faker'">Unos u bazu</button>
         <button onclick="window.location='http://127.0.0.1:8000/dishes?per_page=2&lang=hr&with=ingredients,category,tags'">Hrvatski</button>
         <button onclick="window.location='http://127.0.0.1:8000/dishes?per_page=2&lang=en&with=ingredients,category,tags'">Engleski</button>
     </div>

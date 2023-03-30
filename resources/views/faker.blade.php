@@ -21,7 +21,7 @@
         
         <form action="/dishes" method="POST">
             @csrf
-            <button type="submit" name="action" value="save">Faker</button>
+            <button type="submit" name="action" value="save">Unesi</button>
             <button type="submit" name="action" value="delete">Delete</button>
         </form>
     </div>
