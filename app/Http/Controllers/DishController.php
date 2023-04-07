@@ -8,10 +8,13 @@ use Faker\Factory as Faker;
 use App\Models\Post;
 use App\Models\Dish;
 use DB;
+use PHPUnit\Framework\Constraint\IsEmpty;
 
 class DishController extends Controller
 {
-    public function index() {
+    public function index(Post $post) {
+
+        $dishes = array();
 
         $per_page = request('per_page');
         $lang = request('lang');
@@ -19,125 +22,68 @@ class DishController extends Controller
 
         $arrayWith = explode(',', $with);
 
-        if (Post::where('deleted_at')->exists()) {
 
-            if (count($arrayWith) == 1) {
+        if (count($arrayWith) == 1) {
 
-                $dishes = PostTranslation::select('id', 'locale', 'title', 'post_id', $arrayWith[0], 'status')->where('locale', $lang)
-                ->where('status', 'created')
-                ->take($per_page)
-                ->get();
+            foreach (Post::all() as $posts) {
 
-                dd(json_decode($dishes));
-
-                return view('dishes', [
-                    'dishes' => $dishes,
-                ]);
+                $dishes[] = $posts->translations->map->only(['id', 'locale', 'title', 'post_id', $arrayWith[0], 'status'])
+                    ->where('locale', $lang)
+                    ->where('status', 'created');
 
             }
-            else if (count($arrayWith) == 2) {
 
-                $dishes = PostTranslation::select('id', 'locale', 'title', 'post_id', $arrayWith[0], $arrayWith[1], 'status')->where('locale', $lang)
-                ->where('status', 'created')
-                ->take($per_page)
-                ->get();
+        }
+        else if (count($arrayWith) == 2) {
 
-                dd(json_decode($dishes));
+            foreach (Post::all() as $posts) {
 
-                return view('dishes', [
-                    'dishes' => $dishes,
-                ]);
+                $dishes[] = $posts->translations->map->only(['id', 'locale', 'title', 'post_id', $arrayWith[0], $arrayWith[1], 'status'])
+                    ->where('locale', $lang)
+                    ->where('status', 'created');
 
             }
-            else if (count($arrayWith) == 3) {
 
-                $dishes = PostTranslation::select('id', 'locale', 'title', 'post_id', $arrayWith[0], $arrayWith[1], $arrayWith[2], 'status')->where('locale', $lang,)
-                ->where('status', 'created')
-                ->take($per_page)
-                ->get();
+        }
+        else if (count($arrayWith) == 3) {
 
-                dd(json_decode($dishes));
+            foreach (Post::all() as $posts) {
 
-                return view('dishes', [
-                    'dishes' => $dishes,
-                ]);
+                $dishes[] = $posts->translations->map->only(['id', 'locale', 'title', 'post_id', $arrayWith[0], $arrayWith[1], $arrayWith[2], 'status'])
+                    ->where('locale', $lang)
+                    ->where('status', 'created');
+          
+            }  
 
-            }
-            
+        }
+
+        foreach (array_keys($dishes, '[]') as $key) {
+
+            unset($dishes[$key]);
+
+        }
+
+        if (empty($dishes)) {
+
+            echo 'Nema spremljenih jela';
 
         }
         else {
-            echo 'Nema spremljenih jela';
-        }
 
+            return response()->json([
 
-        return view('dishes');
+                array_slice($dishes, 0, $per_page)
+    
+            ]);
+
+        } 
         
     }
 
-    public function store(Request $request) {
-    
-        //$post = Post::first()->translate('en');
-
-        switch($request->action) {
-            
-            case 'save':
-                $faker = Faker::create();
-                $faker->addProvider(new \FakerRestaurant\Provider\en_US\Restaurant($faker));
-                $faker->seed(1235);
-        
-                
-                $post = Post::create([
-                    'author' => 'Dario',
-                    'en' => [
-                        'title' => $faker->foodName(),
-                        'ingredients' => $faker->meatName(),
-                        'category' => $faker->vegetableName(),
-                        'tags' => $faker->sauceName(),
-                        'status' => 'created'
-                    ],
-                    'hr' => [
-                        'title' => 'Pizza sa sirom',
-                        'ingredients' => 'Pileća prsa',
-                        'category' => 'Jam',
-                        'tags' => 'Cili umak',
-                        'status' => 'created'
-                    ],
-                ]);
-        
-                $faker->seed(1237);
-        
-                
-                $post = Post::create([
-                    'author' => 'Dario',
-                    'en' => [
-                        'title' => $faker->foodName(),
-                        'ingredients' => $faker->meatName(),
-                        'category' => $faker->vegetableName(),
-                        'tags' => $faker->sauceName(),
-                        'status' => 'created'
-                    ],
-                    'hr' => [
-                        'title' => 'Cheeseburger sa slaninom',
-                        'ingredients' => 'Kobasica',
-                        'category' => 'Krastavac',
-                        'tags' => 'Cili umak',
-                        'status' => 'created'
-                    ],
-                ]);
-            break;
-
-            case 'delete':
-                Post::query()->delete();
-                PostTranslation::query()->update(['status'=>'deleted']);
-            break;
-
-        }
-
-       
-        
-
-        return redirect('/');
+    public function show(Post $post) {
+        return response()->json([
+            'data' => $post
+        ]);
     }
 
 }

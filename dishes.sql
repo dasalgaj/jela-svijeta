@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 30, 2023 at 03:03 PM
+-- Generation Time: Apr 07, 2023 at 12:07 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.1.12
 
@@ -128,8 +128,9 @@ CREATE TABLE `posts` (
 --
 
 INSERT INTO `posts` (`id`, `author`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'Dario', '2023-03-30 11:02:48', '2023-03-30 11:02:48', NULL),
-(2, 'Dario', '2023-03-30 11:02:48', '2023-03-30 11:02:48', NULL);
+(1, 'Dario', '2023-04-07 08:06:05', '2023-04-07 08:06:05', NULL),
+(2, 'Dario', '2023-04-07 08:06:05', '2023-04-07 08:06:05', NULL),
+(3, 'Dario', '2023-04-07 08:06:05', '2023-04-07 08:06:05', NULL);
 
 -- --------------------------------------------------------
 
@@ -155,10 +156,12 @@ CREATE TABLE `post_translations` (
 --
 
 INSERT INTO `post_translations` (`id`, `locale`, `title`, `ingredients`, `category`, `tags`, `status`, `post_id`, `created_at`, `updated_at`) VALUES
-(1, 'en', 'Cheese Pizza', 'Chicken breast', 'Yam', 'Chili sauce', 'created', 1, '2023-03-30 13:02:48', '2023-03-30 13:02:48'),
-(2, 'hr', 'Pizza sa sirom', 'Pileća prsa', 'Jam', 'Cili umak', 'created', 1, '2023-03-30 13:02:48', '2023-03-30 13:02:48'),
-(3, 'en', 'Bacon Cheeseburger', 'Sausage', 'Cucumber', 'Chili sauce', 'created', 2, '2023-03-30 13:02:48', '2023-03-30 13:02:48'),
-(4, 'hr', 'Cheeseburger sa slaninom', 'Kobasica', 'Krastavac', 'Cili umak', 'created', 2, '2023-03-30 13:02:48', '2023-03-30 13:02:48');
+(1, 'en', 'Cheese Pizza', 'Chicken breast', 'Yam', 'Chili sauce', 'created', 1, '2023-04-07 10:06:05', '2023-04-07 10:06:05'),
+(2, 'hr', 'Pizza sa sirom', 'Pileća prsa', 'Jam', 'Cili umak', 'created', 1, '2023-04-07 10:06:05', '2023-04-07 10:06:05'),
+(3, 'en', 'Bacon Cheeseburger', 'Sausage', 'Cucumber', 'Chili sauce', 'created', 2, '2023-04-07 10:06:05', '2023-04-07 10:06:05'),
+(4, 'hr', 'Cheeseburger sa slaninom', 'Kobasica', 'Krastavac', 'Cili umak', 'created', 2, '2023-04-07 10:06:05', '2023-04-07 10:06:05'),
+(5, 'en', 'Little Bacon Burger', 'Chicken breast', 'Bell Pepper', 'Mayonnaise sauce', 'created', 3, '2023-04-07 10:06:05', '2023-04-07 10:06:05'),
+(6, 'hr', 'Mali burger sa slaninom', 'Pileća prsa', 'Paprika', 'Majoneza', 'created', 3, '2023-04-07 10:06:05', '2023-04-07 10:06:05');
 
 -- --------------------------------------------------------
 
@@ -267,13 +270,13 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `post_translations`
 --
 ALTER TABLE `post_translations`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `users`
